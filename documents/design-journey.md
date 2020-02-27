@@ -9,13 +9,24 @@ Be clear and concise in your writing. Bullets points are encouraged.
 ### Describe your Catalog (Milestone 1)
 > What will your collection be about? What types of attributes will you keep track of for the *things* in your catalog? 1-2 sentences.
 
+My collection will be about Sociology classes at Cornell. It will have the days the classes meet, the semester (fall or spring), the professor, number of credits, and any college or major requirements it can fulfill.
 
 ### Target Audience(s) (Milestone 1)
 > Tell us about your target audience(s).
 
+My target audience is current Cornell undergraduate students who are Sociology majors and want to take Sociology classes at Cornell.
 
 ### Design Patterns (Milestone 1)
 > Review some existing catalog that are similar to yours. List the catalog's you reviewed here. Write a small reflection on how you might use the design patterns you identified in your review in your own catalog.
+
+https://classes.cornell.edu/browse/roster/SP20/subject/SOC
+
+The Cornell Sociology class roster for Spring 2020 is similar. A design pattern that I may use are the letters M, T, W, R, and F for the different days of the week.
+
+http://courses.cornell.edu/content.php?catoid=31&navoid=7991
+
+The Cornell Archived course catalog. I could use the design pattern of listing the classes by the shortened name SOC then "-" the number and the full name of the class.
+
 
 
 ## Design & Planning (Milestone 2)
