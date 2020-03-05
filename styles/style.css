@@ -1,0 +1,19 @@
+h1{
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td,
+  th {
+    border: none;
+    text-align: left;
+    padding: 10px;
+  }
+
+  tr:nth-child(even) {
+    background: cornflowerblue;
+  }

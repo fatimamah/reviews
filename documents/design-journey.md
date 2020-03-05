@@ -36,10 +36,18 @@ The Cornell Archived course catalog. I could use the design pattern of listing t
 > Label all images. All labels must be visible in VS Code's Markdown Preview.
 > Clearly label the final design.
 
+![alt:"first design"](first_design.jpg)
+First Design
+
+
+![alt:"second design"](second_design.jpg)
+Final Design
+
 
 ## Partials (Milestone 2)
 > If you have any partials, plan them here.
 
+n/a
 
 ## Database Schema (Milestone 2)
 > Describe the structure of your database. You may use words or a picture. A bulleted list is probably the simplest way to do this. Make sure you include constraints for each field.
@@ -48,6 +56,16 @@ Table: movies
 - field 1: description..., constraints...
 - field...
 
+Table: courses(
+    id: INTEGER{PK, U, Not, AI},
+    name: TEXT{Not},
+    pre_reqs{},
+    semester: TEXT{Not},
+    professor: TEXT{Not},
+    credits: Integer{Not},
+    reqs: TEXT{};
+)
+
 
 ## Database Query Plan (Milestone 2)
 > Plan your database queries. You may use natural language, pseudocode, or SQL.]
@@ -55,24 +73,32 @@ Table: movies
 1. All records
 
     ```
-    TODO
+    SELECT * FROM courses
     ```
 
 2. Search records
 
     ```
-    TODO
+    SELECT * FROM courses WHERE (condition)
     ```
 
 3. Insert record
 
     ```
-    TODO
+    INSERT INTO(name, pre_reqs, smester, professor, credits, reqs)
+    VALUES(:value1,:value2,:value3,:value4,:value5,:value6)
     ```
 
 
 ## Code Planning (Milestone 2)
 > Plan any PHP code you'll need here.
+
+<? php
+$db=open_sqlite_db("secure/courses.sqlite");
+
+$sql="SELECT * FROM courses;"
+$result = exec_sql_query($db, $sql);
+?>
 
 
 # Reflection (Final Submission)
