@@ -15,5 +15,17 @@ table {
   }
 
   tr:nth-child(even) {
-    background: cornflowerblue;
+    background: wheat;
+  }
+
+  .yes{
+    background-color: green;
+  }
+
+  .no{
+    background-color: red;
+  }
+
+  .other{
+    background-color: royalblue;
   }
