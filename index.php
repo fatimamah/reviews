@@ -66,7 +66,7 @@ if (isset($_GET['search'])) {
 // Insert Form
 
 
-$courseslist = exec_sql_query($db, "SELECT DISTINCT course_names FROM courses", NULL)->fetchAll(PDO::FETCH_COLUMN);
+$courseslist = exec_sql_query($db, "SELECT DISTINCT course_name FROM courses", NULL)->fetchAll(PDO::FETCH_COLUMN);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $valid_review = TRUE;
@@ -146,16 +146,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <h2>Search Results</h2>
 
             <?php
-            $params = array(":search" => $search);
+
             if ($search_field == "all") {
                 $sql = "SELECT * FROM courses WHERE (course_name LIKE '%' || :search || '%') OR (semester LIKE '%' || :search  || '%') OR (professor LIKE '%' || :search  || '%') OR (credits LIKE '%' || :search  || '%') OR (reqs LIKE '%' || :search  || '%') OR (comments LIKE '%' || :search  || '%') OR (recommended LIKE '%' || :search  || '%')";
+                $params= array(':search' => $search);
             } else {
-                $sql = "SELECT * FROM courses WHERE (".$search_field." LIKE '%' || :search || '%')";
+                $sql = "SELECT * FROM courses WHERE ($search_field LIKE '%' || :search || '%')";
+                $params= array(':search' => $search);
             }
         } else {
-            $sql = "SELECT * FROM courses";
-            $params = array();
+          ?>
+          <h2>All Reviews</h2>
+          <?php
+
+          $sql = "SELECT * FROM courses";
+          $params = array();
         }
+
     $result = exec_sql_query($db, $sql, $params);
     if ($result) {
       // The query was successful, let's get the records.
@@ -175,8 +182,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <th>Recommended</th>
       </tr>
 
-      <?php $courses = $result->fetchAll();
-        foreach($courses as $courses) {
+      <?php
+        foreach($records as $courses) {
           print_courses($courses);
         }
         ?>
@@ -189,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
   ?>
 
-  <h2>Review a Shoe</h2>
+  <h2>Review a Class</h2>
 
   <form id="reviewCourse" action="index.php" method="post" novalidate>
     <div class="group_label_input">
