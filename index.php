@@ -94,8 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // insert valid reviews into database
   if ($valid_review) {
 
-    $sql="INSERT INTO courses (course_name, semester, professor, credits, reqs, comments) VALUES (:course_name, :semester, :professor, :credits, :reqs, :comments)";
-    $params= array(':course_name' => $course_name, ':semester'=> $semester, ':professor' => $professor, ':credits' => $credits, ':reqs' => $reqs, ':comments'=> $comments);
+    $sql="INSERT INTO courses (course_name, semester, professor, credits, reqs, comments, recommended) VALUES (:course_name, :semester, :professor, :credits, :reqs, :comments, :recommended)";
+    $params= array(':course_name' => $course_name, ':semester'=> $semester, ':professor' => $professor, ':credits' => $credits, ':reqs' => $reqs, ':comments'=> $comments, ':recommended'=> $recommended);
     $result = exec_sql_query($db, $sql, $params);
 
 
