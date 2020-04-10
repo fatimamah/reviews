@@ -1,9 +1,10 @@
 <?php include("includes/init.php");
 
 
-// open connection to database
-// TODO: create $db variable by opening the database.
+
 $db = open_sqlite_db("secure/catalog.sqlite");
+
+$messages = array();
 
 function print_courses($courses)
 {
@@ -42,9 +43,6 @@ const SEARCH_FIELDS = [
   "recommended" => "Search Recommended"
 ];
 
-$do_search = FALSE;
-$category = NULL;
-$search = NULL;
 
 if (isset($_GET['search'])) {
   $do_search = TRUE;
@@ -71,27 +69,41 @@ $courseslist = exec_sql_query($db, "SELECT DISTINCT course_name FROM courses", N
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $valid_review = TRUE;
 
-  $course_name = filter_input(INPUT_POST, 'product_name', FILTER_SANITIZE_STRING);
+  $course_name = filter_input(INPUT_POST, 'course_name', FILTER_SANITIZE_STRING);
+  //var_dump($course_name);
   $semester = filter_input(INPUT_POST, 'semester', FILTER_SANITIZE_STRING);
+  //var_dump($semester);
   $professor = filter_input(INPUT_POST, 'professor', FILTER_SANITIZE_STRING);
+  //var_dump($professor);
   $credits = filter_input(INPUT_POST, 'credits', FILTER_VALIDATE_INT);
+  //var_dump($credits);
   $reqs = filter_input(INPUT_POST, 'reqs', FILTER_SANITIZE_STRING);
+  //var_dump($reqs);
   $comments = filter_input(INPUT_POST, 'comments', FILTER_SANITIZE_STRING);
+  //var_dump($comments);
   $recommended = filter_input(INPUT_POST, 'recommended', FILTER_SANITIZE_STRING);
+  //var_dump($recommended);
 
 
-  if ($recommended != "yes" || $recommended != "no" ) {
-    $valid_review = FALSE;
+
+  if ($recommended != "yes" && $recommended != "no" ) {
+   $valid_review = FALSE;
+  }
+
+  if ($course_name == ''){
+    $valid_review=FALSE;
+  }
+
+  if ($professor == ''){
+    $valid_review=FALSE;
+  }
+
+  if ($credits<= 0){
+    $valid_review=FALSE;
   }
 
 
-  if (!in_array($course_name, $semester, $professor, $credits)) {
-    $valid_review = FALSE;
-  }
-
-
-
-  // insert valid reviews into database
+  //insert reviews
   if ($valid_review) {
 
     $sql="INSERT INTO courses (course_name, semester, professor, credits, reqs, comments, recommended) VALUES (:course_name, :semester, :professor, :credits, :reqs, :comments, :recommended)";
@@ -127,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   <main>
 
-  <h1> Cornell Sociology Class Roster </h1>
+  <h1> Cornell Sociology Class Reviews</h1>
 
   <form id="searchForm" action="index.php" method="get" novalidate>
 
@@ -165,11 +177,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $result = exec_sql_query($db, $sql, $params);
     if ($result) {
-      // The query was successful, let's get the records.
+
       $records = $result->fetchAll();
 
       if (count($records) > 0) {
-        // We have records to display
+
     ?>
     <table>
       <tr>
@@ -190,27 +202,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </table>
     <?php
     } else {
-      // No results found
+
       echo "<p>No matching course recommendations found.</p>";
     }
   }
   ?>
 
+<?php
+
+foreach ($messages as $message) {
+  echo "<p class= \"messages\"><strong>" . htmlspecialchars($message) . "</strong></p>\n";
+}
+?>
+
   <h2>Review a Class</h2>
+
 
   <form id="reviewCourse" action="index.php" method="post" novalidate>
     <div class="group_label_input">
       <label>Course Name:</label>
-      <input type="text" name="coursename" />
+      <input type="text" name="course_name" />
     </div>
 
     <div class="group_label_input">
-      <label>Semester:</label>
+      <label name="semester">Semester:</label>
       <div>
-        <input id="fall" type="checkbox" name="fall" value="fall" checked /><label for="fall">Fall</label>
-        <input id="spring" type="checkbox" name="spring" value="spring" /><label for="spring">Spring</label>
-        <input id="winter" type="checkbox" name="winter" value="winter" /><label for="winter">Winter</label>
-        <input id="summer" type="checkbox" name="summer" value="aummer" /><label for="summer">Summer</label>
+        <input id="fall" type="checkbox" name="semester" value="Fall" checked /><label for="fall">Fall</label>
+        <input id="spring" type="checkbox" name="semester" value="Spring" /><label for="spring">Spring</label>
+        <input id="winter" type="checkbox" name="semester" value="Winter" /><label for="winter">Winter</label>
+        <input id="summer" type="checkbox" name="semester" value="Summer" /><label for="summer">Summer</label>
       </div>
     </div>
 
@@ -221,7 +241,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <div class="group_label_input">
       <label>Credits:</label>
-      <input type="number" name="credits" />
+      <input type="number" name="credits" min=0 />
     </div>
 
     <div class="group_label_input">
@@ -231,21 +251,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <div class="group_label_input">
       <label>Comments:</label>
-      <textarea name="comment" cols="40" rows="5"></textarea>
+      <textarea name="comments" cols="40" rows="5"></textarea>
     </div>
 
     <div class="group_label_input">
-      <label>Do you recommend this course to other students?</label>
+      <label name="recommended">Do you recommend this course to other students?</label>
       <div>
-        <input id="yes" type="radio" name="yes" value="yes" checked /><label for="yes">yes</label>
-        <input id="no" type="radio" name="no" value="no" /><label for="no">no</label>
+        <input id="yes" type="radio" name="recommended" value="yes" checked /><label for="yes">yes</label>
+        <input id="no" type="radio" name="recommended" value="no" /><label for="no">no</label>
         </div>
     </div>
 
     <div class="group_label_input">
       <span>
         <!-- empty element; used to align submit button --></span>
-      <button type="submit">Add a Course Recommendation</button>
+      <button type="submit">Add a Course Review</button>
     </div>
     </li>
       </ul>

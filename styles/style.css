@@ -29,3 +29,23 @@ table {
   .other{
     background-color: royalblue;
   }
+
+  .group_label_input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .group_label_input > :first-child {
+    width: 45%;
+    text-align: right;
+    margin-right: 4px;
+  }
+
+  h2{
+    text-align: center;
+  }
+  .messages {
+    color: red;
+    text-align: center;
+  }
