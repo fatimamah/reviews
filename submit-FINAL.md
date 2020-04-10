@@ -9,15 +9,15 @@
 
 **Place an x between the [] after you have completed each step.** (example: [x])
 
-- [] I have checked that each resource included in my submission adheres to the course citation policy.
+- [x] I have checked that each resource included in my submission adheres to the course citation policy.
 
     Failure to adhere to the citation policy will result in a deduction for the assignment.
 
-- [] All of the code I am submitting is my own work.
+- [x] All of the code I am submitting is my own work.
 
     If you used other code as reference when writing your own code, please cite the resource via a comment.
 
-- [] I have **checked** that my _entire_ submission has been **pushed** to Cornell's GitHub.
+- [x] I have **checked** that my _entire_ submission has been **pushed** to Cornell's GitHub.
 
     Failure to push to GitHub is the same as not submitting an assignment. See the assignment submission policy.
 
@@ -25,9 +25,9 @@
 
     Your assignment's **submission time** is the time of your **last push** and _not_ the time of your last commit (the dates next to commits in GitHub).
 
-- [] I am ready to have my assignment graded.
+- [x] I am ready to have my assignment graded.
 
 **Sign your name and include today's date and time to submit the FINAL SUBMISSION.**
 
-- Full Name:
-- Date & Time:
+- Full Name: Fatima Mahmoud
+- Date & Time: 4/10/20 at 6:50 am
